@@ -1,0 +1,16 @@
+If you would like to contribute, please open a GitHub Issue:
+
+* https://github.com/gdey/aws_ebs_disk/issues
+
+When submitting a pull request, please do not modify the version number. I will
+update the version number as need, after merging in pull requests.
+
+If a contribution adds new platforms or platform versions, indicate such in the 
+body of the commit message(s), and in the pull request. When writing commit 
+messages, it is helpful for others if you indicate the GitHub issue/pull request
+number.
+
+    git commit -m '[issues/1] Updated pool resource to correctly delete.'
+
+In the ticket itself, it is also helpful if you include log output of
+a successful Chef run, but this is not absolutely required.
