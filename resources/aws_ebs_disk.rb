@@ -5,13 +5,13 @@ end
 
 actions :create_and_mount 
 
-attributes :aws_secret_access_key, :kind_of  => String,  :required  => true
-attributes :aws_access_key,        :kind_of  => String,  :required  => true
-attributes :mount_point,           :kind_of  => String,  :required  => true
-attributes :device,                :kind_of  => String,  :required  => true
-attributes :size,                  :kind_of  => Integer, :required  => true
-attributes :mount_options,         :kind_of  => String,  :default   => "defaults,auto,noatime,noexec"
-attributes :description,           :kind_of  => String,  :default   => ""
-attributes :fstype,                :kind_of  => String,  :default   => "ext4"
-attributes :tags,                  :kind_of  => Hash,    :default   => {}
+attribute :aws_secret_access_key, :kind_of  => String,  :required  => true
+attribute :aws_access_key,        :kind_of  => String,  :required  => true
+attribute :mount_point,           :kind_of  => String,  :required  => true
+attribute :device,                :kind_of  => String,  :required  => true
+attribute :size,                  :kind_of  => Integer, :required  => true
+attribute :mount_options,         :kind_of  => String,  :default   => "defaults,auto,noatime,noexec"
+attribute :description,           :kind_of  => String,  :default   => ""
+attribute :fstype,                :kind_of  => String,  :default   => "ext4"
+attribute :tags,                  :kind_of  => Hash,    :default   => {}
 

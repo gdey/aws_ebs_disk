@@ -1,4 +1,4 @@
-include_recipe 'aws'
+#include_recipe 'aws'
 
 action :create_and_mount do
 
@@ -51,6 +51,7 @@ action :create_and_mount do
       aws_access_key new_resource.aws_access_key
       aws_secret_access_key new_resource.aws_secret_accesss_key
       tags resource_tags
+      node.save
       action :update
 
    end

@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: aws_ebs_disk
-# Recipe:: create
+# Recipe:: create_and_mount
 #
 # Copyright 2013 Gautam Dey <gdey@cpan.org>
 #
@@ -18,9 +18,9 @@
 #
 #
 
-unless node['aws'].nil?  do
+unless node['aws'].nil? begin 
 
-   include_recipe 'aws';
+  # include_recipe 'aws';
    
    app_environment = node["app_environment"] || "development"
    aws = search(:aws,"id:#{app_environment}").first
