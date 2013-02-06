@@ -32,28 +32,30 @@ action :create_and_mount do
    end
 
    # Let's tag our resource.
-   aws_resource_tag node['aws']['ebs_volume'][new_resource.name]['volume_id'] do
+   unless node['aws']['ebs_volume'][new_resource.name]['volume_id'].nil?
+     aws_resource_tag node['aws']['ebs_volume'][new_resource.name]['volume_id'] do
 
-      resource_tags                         = new_resource.tags
-      resource_tags["Mount Point"]          = new_resource.mount_point
-      resource_tags["FS Type"]              = new_resource.fstype
-      resource_tags["Guest Device"]         = guest_device
-      resource_tags["Device"]               = new_resource.device
-      resource_tags["Attached Instance ID"] = node.ec2.instance_id
+        resource_tags                         = new_resource.tags
+        resource_tags["Mount Point"]          = new_resource.mount_point
+        resource_tags["FS Type"]              = new_resource.fstype
+        resource_tags["Guest Device"]         = guest_device
+        resource_tags["Device"]               = new_resource.device
+        resource_tags["Attached Instance ID"] = node.ec2.instance_id
 
-      node.set['aws']['ebs_volume'][new_resource.name]['mount_point']         = new_resource.mount_point
-      node.set['aws']['ebs_volume'][new_resource.name]['fstype']              = new_resource.fstype
-      node.set['aws']['ebs_volume'][new_resource.name]['device']              = new_resource.device
-      node.set['aws']['ebs_volume'][new_resource.name]['size']                = new_resource.size
-      node.set['aws']['ebs_volume'][new_resource.name]['guest_device']        = guest_device
-      node.set['aws']['ebs_volume'][new_resource.name]['aws_ebs_disk_action'] = "create_and_mount"
+        node.set['aws']['ebs_volume'][new_resource.name]['mount_point']         = new_resource.mount_point
+        node.set['aws']['ebs_volume'][new_resource.name]['fstype']              = new_resource.fstype
+        node.set['aws']['ebs_volume'][new_resource.name]['device']              = new_resource.device
+        node.set['aws']['ebs_volume'][new_resource.name]['size']                = new_resource.size
+        node.set['aws']['ebs_volume'][new_resource.name]['guest_device']        = guest_device
+        node.set['aws']['ebs_volume'][new_resource.name]['aws_ebs_disk_action'] = "create_and_mount"
 
-      aws_access_key new_resource.aws_access_key
-      aws_secret_access_key new_resource.aws_secret_accesss_key
-      tags resource_tags
-      node.save
-      action :update
+        aws_access_key new_resource.aws_access_key
+        aws_secret_access_key new_resource.aws_secret_accesss_key
+        tags resource_tags
+        node.save
+        action :update
 
+     end
    end
 
 
