@@ -16,5 +16,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include_recipe 'aws';
+include_recipe 'aws_ebs_disk::create_and_mount';
 

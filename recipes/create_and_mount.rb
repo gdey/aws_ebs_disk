@@ -18,9 +18,11 @@
 #
 #
 
-unless node['aws'].nil? begin 
+# Only run the recipe if we are on an ebs volume.
+unless node['aws'].nil? or node['aws']['ebs_volume'].nil?
 
-  # include_recipe 'aws';
+
+   include_recipe 'aws';
    
    app_environment = node["app_environment"] || "development"
    aws = search(:aws,"id:#{app_environment}").first
@@ -39,7 +41,7 @@ unless node['aws'].nil? begin
       resource_tags["Chef Environment"] = node.chef_environment
       resource_tags["App Environment"]  = app_environment
 
-      aws_ebs_disk volume_name do
+      aws_ebs_disk_create_and_mount volume_name do
          aws_secret_access_key aws['aws_secret_access_key']
          aws_access_key aws['aws_access_key_id']
          description "Attaching to instance #{node.ec2.instance_id}"

@@ -6,7 +6,7 @@ action :create_and_mount do
 
    aws_ebs_volume new_resource.name do 
       aws_access_key new_resource.aws_access_key
-      aws_secret_access_key new_resource.aws_secret_accesss_key
+      aws_secret_access_key new_resource.aws_secret_access_key
       size new_resource.size
       device new_resource.device
       description new_resource.description
@@ -20,8 +20,12 @@ action :create_and_mount do
       cwd "/"
       code "mke2fs -t #{new_resource.fstype} -F #{guest_device} -L '#{new_resource.name}'"
       user "root"
-      not_if "blkid #{guest_device} | grep 'TYPE=\"#{new_resource.fstype}\"", 
+      not_if "blkid #{guest_device} | grep 'TYPE=\"#{new_resource.fstype}\"'", 
              :user => "root", :cwd => "/"
+   end
+
+   directory new_resource.mount_point do
+       recursive true 
    end
 
    mount new_resource.mount_point do 
@@ -50,7 +54,7 @@ action :create_and_mount do
         node.set['aws']['ebs_volume'][new_resource.name]['aws_ebs_disk_action'] = "create_and_mount"
 
         aws_access_key new_resource.aws_access_key
-        aws_secret_access_key new_resource.aws_secret_accesss_key
+        aws_secret_access_key new_resource.aws_secret_access_key
         tags resource_tags
         node.save
         action :update
